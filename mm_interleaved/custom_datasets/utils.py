@@ -402,6 +402,9 @@ def _build_dataset(config):
     return dataset
 
 
+# transform config:
+# aug_type: numpy
+# resolution: 224
 def create_transform(
     aug_type="numpy",
     resolution=224,
@@ -439,7 +442,7 @@ def create_transform(
         transform = transforms.Compose(transform)
     elif aug_type.startswith("dual_"):
         aug_type = aug_type.replace("dual_", "")
-        assert resolution2 > 0, f"{aug_type=}; {resolution2=}"
+        assert resolution2 > 0, f"{aug_type}; {resolution2}"
         transform = dual_transform(
             resolution1=resolution,
             resolution2=resolution2,
@@ -515,6 +518,7 @@ class dual_transform:
         return f"Dual Transform: {self.transform1}\n{self.transform2}"
 
 
+# transform for image (crop, flip and normalize)
 class transform_numpy:
     def __init__(
         self,
@@ -529,7 +533,8 @@ class transform_numpy:
         self.center_crop = center_crop
         self.random_flip = random_flip
         self.neg_normalize = neg_normalize
-
+    
+    # transform function, output: np.ndarray (image representation)
     def __call__(self, pil_image):
         if self.random_crop:
             arr = random_crop_arr(pil_image, self.resolution)
@@ -557,8 +562,8 @@ class transform_numpy:
 
     def __repr__(self):
         return (
-            f"transform_numpy: {self.resolution=}, {self.random_crop=}, "
-            f"{self.random_flip=}, {self.neg_normalize=}"
+            f"transform_numpy: {self.resolution}, {self.random_crop}, "
+            f"{self.random_flip}, {self.neg_normalize}"
         )
 
 
@@ -579,7 +584,7 @@ class transform_numpy_grounding:
         return arr
 
     def __repr__(self):
-        return f"transform_numpy_grounding: {self.resolution=}, {self.neg_normalize=}"
+        return f"transform_numpy_grounding: {self.resolution}, {self.neg_normalize}"
 
 
 def resize_arr(pil_image, image_size):

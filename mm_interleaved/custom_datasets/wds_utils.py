@@ -183,6 +183,7 @@ def jsonl_to_samples_nothrow(src, annt_root="", client=None, handler=log_and_con
                 break
 
 
+# init text tokenizer (vicuna tokenizer)
 def init_tokenizer(tokenizer_path, add_grounding_special_tokens=False):
     tokenizer = AutoTokenizer.from_pretrained(
         tokenizer_path, use_fast=False
@@ -292,8 +293,8 @@ def calc_nearest_bos_token_idxs(
             nearest_bos_idxs.append(nearest_bos_idx)
         nearest_bos_idxs = np.array(nearest_bos_idxs)
     except Exception as exp:
-        print(f"{text_ids=}", force=True)
-        print(f"{soi_token_idxs=}, {bos_token_idxs=}", force=True)
+        print(f"{text_ids}", force=True)
+        print(f"{soi_token_idxs}, {bos_token_idxs}", force=True)
         raise exp
     return nearest_bos_idxs
 

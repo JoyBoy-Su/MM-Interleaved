@@ -81,7 +81,7 @@ class MMFS(nn.Module):
         self.register_buffer(
             "scale_ratios", torch.tensor(scale_ratios), persistent=False
         )
-        print(f"MMFS {spatial_shapes=} {base_spatial_shape=} {self.scale_ratios=}")
+        print(f"MMFS {spatial_shapes} {base_spatial_shape} {self.scale_ratios}")
         self.sampling_offsets = nn.Linear(d_query, n_heads * n_points * 2)
 
         self.ignore_token = nn.Parameter(

@@ -36,6 +36,24 @@ from mm_interleaved.utils import (
 from mm_interleaved.utils.clip_sim_score import tensor_to_pil
 
 
+# load annt data: strongly related to the data format in the annt.json file
+# data:
+# {
+#     "sentences": [
+#         "a kitchen is shown with a variety of items on the counters."
+#     ],
+#     "images": [
+#         "./assets/dataset/coco/val2014/COCO_val2014_000000384213.jpg"
+#     ],
+#     "sentence_ixs": [
+#         0 
+#     ],
+#     "image_first": [
+#         false 
+#     ],
+#     "generate_mode": "generate_images",
+#     "num_iter": 1
+# },
 def load_annt_data(
     transform,
     tokenizer,
@@ -49,12 +67,13 @@ def load_annt_data(
         infos = json.load(rf)
 
     data = []
-    for info in infos:
+    for info in infos:  # loop for item whose format is shown above.
         sentences = info["sentences"]
         sentence_ixs = info["sentence_ixs"]
         image_paths = info["images"]
         image_first = info["image_first"]
 
+        # read and preprocess the image
         images = []
         for image_path in image_paths:
             image = Image.open(image_path).convert("RGB")
@@ -198,9 +217,10 @@ def update_image(inputs, images, transform=None):
 
 def inference_all(model, config, annt_path, output_dir):
     # prepare data
-    tokenizer = init_tokenizer(config.tokenizer_path)
-    transform = create_transform(**config.transform)
+    tokenizer = init_tokenizer(config.tokenizer_path)   # init vicuna tokenizer
+    transform = create_transform(**config.transform)    # transform for image (crop, filp and norm)
 
+    # 
     data = load_annt_data(
         transform=transform,
         tokenizer=tokenizer,
@@ -288,7 +308,9 @@ def main():
     print(config)
 
     print("Model Init Start")
-    model = MMInterleaved(**config.model)
+    # init mm interleaved model (vision encoder, vision decoder, llm)
+    # weights without mm-interleaved training?
+    model = MMInterleaved(**config.model)   
 
     if getattr(config, "load_from", None):
         load_model_weights(model, config.load_from)

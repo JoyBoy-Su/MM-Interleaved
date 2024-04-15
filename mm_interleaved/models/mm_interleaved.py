@@ -147,7 +147,7 @@ class MMInterleaved(nn.Module):
         ).nonzero(as_tuple=True)
         image_token_pos = image_token_pos_x * L + image_token_pos_y
         assert image_token_pos.shape[0] == valid_image_embeds.shape[0], (
-            f"{image_token_pos.shape=}, {valid_image_embeds.shape=}\n"
+            f"{image_token_pos.shape}, {valid_image_embeds.shape}\n"
             f"{meta}\n"
             f"{text_ids[:,:100]} \n {text_ids[:,-100:]}"
         )
@@ -728,7 +728,7 @@ class MMInterleaved(nn.Module):
             text_logits = torch.cat(text_logits_all)
             assert (
                 text_logits.shape[1] == options_ids[i].shape[1]
-            ), f"{text_logits.shape=} {options_ids[i].shape=}"
+            ), f"{text_logits.shape} {options_ids[i].shape}"
 
             text_log_probs = F.log_softmax(text_logits, dim=-1)
             text_log_probs = torch.gather(
