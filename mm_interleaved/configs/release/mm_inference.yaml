@@ -1,15 +1,15 @@
-load_from: ./OUTPUT/mm_interleaved_pretrain
+load_from: /data/jdsu/ckpts/models/MM-Interleaved/mm_interleaved_pretrain
 annt_path: ./docs/examples/annt.json
-output_dir: ./OUTPUT/mm_inference
+output_dir: ./output/mm_inference
 
 # MODEL
 
 model:
-  llm_model_path: &tokenizer_path ./assets/lmsys/vicuna-13b-v1.3
+  llm_model_path: &tokenizer_path /data/jdsu/ckpts/models/vicuna-13b-v1.3
   num_img_token: &img_len 64
 
   visual_tokenizer_config:
-    encoder_model_path: ./assets/openai/clip-vit-large-patch14
+    encoder_model_path: /data/jdsu/ckpts/models/clip-vit-large-patch14
     perceiver_config:
       num_queries: 64
       hidden_size: 768
@@ -19,7 +19,7 @@ model:
       num_attention_heads: 12
       qk_normalization: True
   image_decoder_config:
-    pretrained_model_name_or_path: ./assets/stabilityai/stable-diffusion-2-1-base
+    pretrained_model_name_or_path: /data/jdsu/ckpts/models/stable-diffusion-2-base
     sd_base_seed: 42
     perceiver_config:
       num_queries: 77

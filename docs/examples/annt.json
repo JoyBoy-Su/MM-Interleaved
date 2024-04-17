@@ -4,7 +4,7 @@
             "a kitchen is shown with a variety of items on the counters."
         ],
         "images": [
-            "./assets/dataset/coco/val2014/COCO_val2014_000000384213.jpg"
+            "./docs/examples/COCO_val2014_000000384213.jpg"
         ],
         "sentence_ixs": [
             0 
@@ -21,7 +21,7 @@
             "A photo of"
         ],
         "images": [
-            "./assets/dataset/coco/val2014/COCO_val2014_000000384213.jpg"
+            "./docs/examples/COCO_val2014_000000384213.jpg"
         ],
         "sentence_ixs": [
             0 
