@@ -24,7 +24,7 @@ def _is_power_of_2(n):
         raise ValueError('invalid input for _is_power_of_2: {} (type: {})'.format(n, type(n)))
     return (n & (n - 1) == 0) and n != 0
 
-
+# Multi-Scale Deformable Attention Module. input: different scale features and query, output: encoded output
 class MSDeformAttn(nn.Module):
     def __init__(self, d_model=256, n_levels=4, n_heads=8, n_points=4, ratio=1.0):
         """Multi-Scale Deformable Attention Module.

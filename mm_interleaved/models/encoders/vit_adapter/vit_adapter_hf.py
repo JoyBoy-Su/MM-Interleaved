@@ -34,27 +34,27 @@ def _ntuple(n):
 
 to_2tuple = _ntuple(2)
 
-
+# clip adapter, 
 class CLIPVisionTransformerAdapter(nn.Module):
     def __init__(self, config: CLIPVisionConfig, conv_inplane=64, n_points=4):
         super().__init__()
         self.config = config
-        embed_dim = config.hidden_size
-        image_size = config.image_size
-        num_attention_heads = config.num_attention_heads
-        num_hidden_layers = config.num_hidden_layers
+        embed_dim = config.hidden_size  # clip hidden size (1024)
+        image_size = config.image_size  # image size (224)
+        num_attention_heads = config.num_attention_heads    # heads (16)
+        num_hidden_layers = config.num_hidden_layers        # hidden layers (24)
         
         if num_hidden_layers == 24:  # for ViT-Large
-            self.interaction_indexes = [[0, 5], [6, 11], [12, 17], [18, 23]]
+            self.interaction_indexes = [[0, 5], [6, 11], [12, 17], [18, 23]]    # ??
         else:
             raise NotImplementedError
         self.embeddings = CLIPVisionEmbeddings(config)
         self.pre_layrnorm = nn.LayerNorm(embed_dim, eps=config.layer_norm_eps)
-        self.encoder = CLIPEncoder(config)
+        self.encoder = CLIPEncoder(config)  # init the model architecture
         
         # adapter modules
-        self.adapter_level_embed = nn.Parameter(torch.zeros(3, embed_dim))
-        self.adapter_spm = SpatialPriorModule(inplanes=conv_inplane, embed_dim=embed_dim, with_cp=False)
+        self.adapter_level_embed = nn.Parameter(torch.zeros(3, embed_dim))  # 
+        self.adapter_spm = SpatialPriorModule(inplanes=conv_inplane, embed_dim=embed_dim, with_cp=False)    # encode features of different scale
         self.adapter_interactions = nn.Sequential(*[
             InteractionBlockWithCls(
                 dim=embed_dim, num_heads=num_attention_heads, n_points=n_points,
@@ -227,7 +227,7 @@ class CLIPVisionAdapterModel(CLIPPreTrainedModel):
             return_dict=return_dict,
         )
 
-
+# clip vit addapter, extract multi-scale feature: 1/4, 1/8, 1/16, 1/32
 def clip_vit_adapter_hf(
     model_path="openai/clip-vit-large-patch14",
     image_size=224,

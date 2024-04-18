@@ -7,7 +7,7 @@ from .vit_adapter import clip_vit_adapter_hf
 from ..decoders.perceiver import PerceiverResampler
 from ..utils.pos_embed import get_abs_pos, get_2d_sincos_pos_embed
 
-
+# visual tokenizer: encoder model and perceiver config (and multi-scale feature, vit-adapter)
 class VisualTokenizer(nn.Module):
     def __init__(
         self,

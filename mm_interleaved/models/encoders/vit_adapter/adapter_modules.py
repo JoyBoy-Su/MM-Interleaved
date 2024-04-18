@@ -263,11 +263,11 @@ class LayerNorm(nn.Module):
             x = x.to(input_dtype)
             return x
 
-
+# encode features of different scale, input (batch, channels, h, w), output (batch, len, embed_dim)
 class SpatialPriorModule(nn.Module):
-    def __init__(self, inplanes=64, embed_dim=384, with_cp=False):
+    def __init__(self, inplanes=64, embed_dim=384, with_cp=False):  # embed_dim will be set hidden size, inplanes is out channels
         super().__init__()
-        self.with_cp = with_cp
+        self.with_cp = with_cp  # with cp is false
         
         self.stem = nn.Sequential(*[
             nn.Conv2d(3, inplanes, kernel_size=3, stride=2, padding=1, bias=False),
@@ -280,23 +280,23 @@ class SpatialPriorModule(nn.Module):
             LayerNorm(inplanes),
             nn.ReLU(inplace=True),
             nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-        ])
-        self.conv2 = nn.Sequential(*[
+        ])  # 1/4
+        self.conv2 = nn.Sequential(*[   # inplanes => 2 x inplanes
             nn.Conv2d(inplanes, 2 * inplanes, kernel_size=3, stride=2, padding=1, bias=False),
             LayerNorm(2 * inplanes),
             nn.ReLU(inplace=True)
-        ])
-        self.conv3 = nn.Sequential(*[
+        ])  # 1/8
+        self.conv3 = nn.Sequential(*[   # 2 x inplanes => 4 x inplanes
             nn.Conv2d(2 * inplanes, 4 * inplanes, kernel_size=3, stride=2, padding=1, bias=False),
             LayerNorm(4 * inplanes),
             nn.ReLU(inplace=True)
-        ])
-        self.conv4 = nn.Sequential(*[
+        ])  # 1/16
+        self.conv4 = nn.Sequential(*[   # 4 x inplanes => 4 x inplanes
             nn.Conv2d(4 * inplanes, 4 * inplanes, kernel_size=3, stride=2, padding=1, bias=False),
             LayerNorm(4 * inplanes),
             nn.ReLU(inplace=True)
-        ])
-        self.fc1 = nn.Conv2d(inplanes, embed_dim, kernel_size=1, stride=1, padding=0, bias=True)
+        ])  # 1/32
+        self.fc1 = nn.Conv2d(inplanes, embed_dim, kernel_size=1, stride=1, padding=0, bias=True)        # channels => embed dim
         self.fc2 = nn.Conv2d(2 * inplanes, embed_dim, kernel_size=1, stride=1, padding=0, bias=True)
         self.fc3 = nn.Conv2d(4 * inplanes, embed_dim, kernel_size=1, stride=1, padding=0, bias=True)
         self.fc4 = nn.Conv2d(4 * inplanes, embed_dim, kernel_size=1, stride=1, padding=0, bias=True)
@@ -304,7 +304,7 @@ class SpatialPriorModule(nn.Module):
     def forward(self, x):
         
         def _inner_forward(x):
-            c1 = self.stem(x)
+            c1 = self.stem(x)       # base module, 1 x inplanes
             c2 = self.conv2(c1)
             c3 = self.conv3(c2)
             c4 = self.conv4(c3)
@@ -319,10 +319,10 @@ class SpatialPriorModule(nn.Module):
             c3 = c3.view(bs, dim, -1).transpose(1, 2)  # 16s
             c4 = c4.view(bs, dim, -1).transpose(1, 2)  # 32s
             
-            return c1, c2, c3, c4
+            return c1, c2, c3, c4   # (batch, resolution, embed_dim)
         
         if self.with_cp and x.requires_grad:
             outs = cp.checkpoint(_inner_forward, x)
         else:
-            outs = _inner_forward(x)
+            outs = _inner_forward(x)    # this branch.
         return outs

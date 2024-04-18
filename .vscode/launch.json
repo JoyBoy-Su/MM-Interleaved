@@ -5,6 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python Debugger: Unit Debug",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "debug_unit.py",
+            "console": "integratedTerminal",
+        },
+        {
             "name": "Python Debugger: Inference",
             "type": "debugpy",
             "request": "launch",

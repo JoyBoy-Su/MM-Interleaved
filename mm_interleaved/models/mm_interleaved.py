@@ -48,20 +48,20 @@ class MMInterleaved(nn.Module):
         dataset_to_ignore_noimage_cond_loss=[],
     ):
         super().__init__()
-        self.dataset_to_ignore_noimage_cond_loss = dataset_to_ignore_noimage_cond_loss
+        self.dataset_to_ignore_noimage_cond_loss = dataset_to_ignore_noimage_cond_loss  # [] empty list
 
-        self.seq_len = seq_len
-        self.txt_vocab_size = txt_vocab_size
-        self.special_token_dict = special_token_dict
-        self.loss_img_weight = loss_img_weight
-        self.loss_txt_weight = loss_txt_weight
-        self.num_img_token = num_img_token
+        self.seq_len = seq_len  # context length? (2048)
+        self.txt_vocab_size = txt_vocab_size    # text vocab size (32002)
+        self.special_token_dict = special_token_dict    # <bos>, <eos>, <pad>, <soi>(start of image?), <image>
+        self.loss_img_weight = loss_img_weight  # 10.0
+        self.loss_txt_weight = loss_txt_weight  # 1.0
+        self.num_img_token = num_img_token      # 64, token num of each image?
 
-        llm_config = LlamaConfig.from_pretrained(llm_model_path)
-
+        llm_config = LlamaConfig.from_pretrained(llm_model_path)    # vicuna config
+        # visual tokenizer (clip vit large 14 and adapter), extract multi-scale features
         self.visual_tokenizer = VisualTokenizer(
-            llm_hidden_size=llm_config.hidden_size,
-            **visual_tokenizer_config
+            llm_hidden_size=llm_config.hidden_size, # encoder hidden size, (5120)
+            **visual_tokenizer_config   # encoder model and perceiver config.
         )
 
         llm_config.image_embed_dim = image_embed_dim
