@@ -1,0 +1,58 @@
+[
+    {
+        "sentences": [
+            "a kitchen is shown with a variety of items on the counters.<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>"
+        ],
+        "images": [
+            "./docs/examples/COCO_val2014_000000384213.jpg"
+        ],
+        "sentence_ixs": [
+            0
+        ],
+        "image_first": [
+            false
+        ],
+        "generate_mode": "generate_images",
+        "num_iter": 10,
+        "generate_results": [
+            "0_0_0.png",
+            "[the view] at the edge of a kitchen counter",
+            "top - jewish museum [6/2013]",
+            "(courtesy of the museum)",
+            "by joseph friedman",
+            "(via flickr) [attribution-sharealike 2.0]",
+            "creative commons license. no changes made to image",
+            ". 5690x3824pixels",
+            ". jewishmuseum.org",
+            "/object-301429"
+        ]
+    },
+    {
+        "sentences": [
+            "<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>A photo of"
+        ],
+        "images": [
+            "./docs/examples/COCO_val2014_000000384213.jpg"
+        ],
+        "sentence_ixs": [
+            0
+        ],
+        "image_first": [
+            true
+        ],
+        "generate_mode": "generate_texts",
+        "num_iter": 10,
+        "generate_results": [
+            "a kitchen in a cabin on mt. hood national forest, oregon",
+            ". the kitchen is basic, there are piles of dishes and a table with an oil lamp on it sitting in front of windows overlooking the woods",
+            ". the wall is painted in a checkerboard pattern of green and yellow, with one window overlooking this view.",
+            "the cabin's interior is made of wood, and a brown linoleum floor.",
+            "the door is closed, and there are no people in this picture.",
+            "a sign above the door says \"gone fishin\" and has various decorations hanging from it.",
+            "the cabin sits at an altitude of 4,300 feet.",
+            "(note: if you would like the photo without watermark for personal use, please email me at chrysa@mac.com)",
+            "this image may not be used for commercial purposes.",
+            "the copyright belongs to chrysa morningstar. 2015 all rights reserved"
+        ]
+    }
+]

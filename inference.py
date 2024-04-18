@@ -81,14 +81,14 @@ def load_annt_data(
             images.append(image)
         assert len(images) > 0, "Please provide at least 1 image as inputs"
 
-        image_tensors = np.stack(images, axis=0)
-        image_subseq = "<|beginofimage|>" + "<|image|>" * num_img_token
+        image_tensors = np.stack(images, axis=0)    # (n, c, h, w) (1, 3, 224, 224)
+        image_subseq = "<|beginofimage|>" + "<|image|>" * num_img_token # image
         for ix, img_first in zip(sentence_ixs, image_first):
             if img_first:
                 sentences[ix] = image_subseq + sentences[ix]
             else:
                 sentences[ix] = sentences[ix] + image_subseq
-        text = " ".join(sentences)
+        text = " ".join(sentences)  # 'a kitchen is shown with a variety of items on the counters.<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>'
 
         # whitespace cleanup
         text = (
@@ -98,16 +98,16 @@ def load_annt_data(
             .replace("<|beginofimage|> ", "<|beginofimage|>")
         )
 
-        tokenizer.padding_side = "right"
+        tokenizer.padding_side = "right"    # 'a kitchen is shown with a variety of items on the counters.<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>'
         text_tensor = tokenizer(
             text,
-            max_length=num_total_token,
+            max_length=num_total_token,     # 2048 (context length)
             truncation=truncation,
             padding="do_not_pad",
             return_tensors="np",
             return_attention_mask=True,
-        )
-        text_ids = text_tensor["input_ids"][0]
+        )   # {"input ids": np.ndarray; "attention_mask": np.ndarray}, input ids shape: (batch, length); (1, 80)
+        text_ids = text_tensor["input_ids"][0]  # text ids, include: "<|image|>"
         text_attn_mask = text_tensor["attention_mask"][0]
 
         image_tensors = torch.from_numpy(image_tensors)
@@ -119,19 +119,19 @@ def load_annt_data(
             image_tensors_dec=None,
             text_ids=torch.from_numpy(text_ids)[None, ...],
             attention_mask=torch.from_numpy(text_attn_mask)[None, ...],
-            num_image_per_seq=torch.tensor([num_images]),
+            num_image_per_seq=torch.tensor([num_images]),   # tensor [1]
             nearest_bos_idxs=None,
             meta=info,
-            target_image_idxs=target_image_idxs,
+            target_image_idxs=target_image_idxs,    # tensor [0]
         )
 
-        if generation_kwargs is not None:
+        if generation_kwargs is not None:   # max length, min length, num beams, num inference steps ...
             for k, v in generation_kwargs.items():
                 _data[k] = v
 
         data.append(_data)
 
-    return data
+    return data # 2 items
 
 
 def update_texts(
@@ -228,7 +228,7 @@ def inference_all(model, config, annt_path, output_dir):
         generation_kwargs=config.generation_kwargs,
         annt_path=annt_path,
     )
-    H = transform.resolution
+    H = transform.resolution        # 224
     pad_image_tensor = torch.ones((1, 3, H, H)) * 0.5
 
     eval_results = []
@@ -276,7 +276,7 @@ def inference_all(model, config, annt_path, output_dir):
                 if gen_image_next:
                     generate_mode = "generate_images"
             elif generate_mode == "generate_images":
-                for i in range(len(outputs["image"])):
+                for i in range(len(outputs["image"])):  # (b, c, h, w)
                     image_fn = f"{sample_idx}_{cur_iter}_{i}.png"
                     save_image(
                         outputs["image"][i],
@@ -316,7 +316,7 @@ def main():
 
     if getattr(config, "load_from", None):
         load_model_weights(model, config.load_from)
-    model = model.to(device="cuda")
+    model = model.to(device="cuda") # 61390MiB, 61GB
     model.eval()
 
     inference_all(model=model, config=config.inference, annt_path=config.annt_path, output_dir=train_args.output_dir)

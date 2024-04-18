@@ -1,0 +1,98 @@
+[
+    {
+        "sentences": [
+            "a kitchen is shown with a variety of items on the counters.<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>"
+        ],
+        "images": [
+            "./docs/examples/COCO_val2014_000000384213.jpg"
+        ],
+        "sentence_ixs": [
+            0
+        ],
+        "image_first": [
+            false
+        ],
+        "generate_mode": "generate_images",
+        "num_iter": 30,
+        "generate_results": [
+            "0_0_0.png",
+            ".10/29/59",
+            "/457.10am",
+            ".5985337021-56",
+            "235978.jpg",
+            ".9430612598",
+            "50.16734239918-mcdonalds-boston_macaroni",
+            "_salad_bowl.jpg",
+            ".359410762847",
+            "3.1485790266-3",
+            "361805974_-2.jpg",
+            ".510279436285-mcdonalds_chicken_softshell_taco__._new_.jpg",
+            ".1249768503-3.jpg",
+            ".719308462-new_mcdonalds_crispychickenstrips_____.jpg.583758739-oatmeal",
+            "_chocolate chip_cookie-1.jpg",
+            ".782649103-mcdo_sesamechickenstrips_______.jpg",
+            ".619580432_soda_bottles-7",
+            "2.jpg#%7B",
+            "/uploads%7D/-965318425-coca_cola___.jpg.",
+            "516924308-kfc_dumbfriedchicken___._foto.jpg",
+            ".436027598-sweet_tea___.jpg.1878584100%c2zpixelrestaurantphotodomain-%e2%b0%.gif",
+            "-coca_cola_redcoke.jpg",
+            ".328109765-beverages_menu_new___.jpg-.gif",
+            ".539768421-pepsicolabrands___.jpg-.gif",
+            "-_soda_flavor_list.jpg.1256738940-mcchicken____.jpg",
+            ".468250391-mcdonalds_drink_fountains___.jpg-coca cola 0._1.gif-.gif ---------------------",
+            ".jpg-mcdonalds_dinein___.png-.gif-1309678245.-aeropescafeteria---elpueblodetemple--chile",
+            "-1024x768.jpg-.gif.-the_bigmac_____.png-.jpeg",
+            ".520947836.-peter_piper_pepperoni_with___.png-.jpg-beer_selection_on_____.jpg.1722675536--mcdonalds---flickr___photographedbywaltercassidy.jpg .",
+            "201673549.-coca_colamccaf\u00e9-soda_fountain___.jpg-.gif.589023559-foodmenu____mcdonalds_restaurant_tray___new__.png--macd---drinksoftheworldcom._jpg.--beer___bier---softdrinks__soffischeizung"
+        ]
+    },
+    {
+        "sentences": [
+            "<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>A photo of"
+        ],
+        "images": [
+            "./docs/examples/COCO_val2014_000000384213.jpg"
+        ],
+        "sentence_ixs": [
+            0
+        ],
+        "image_first": [
+            true
+        ],
+        "generate_mode": "generate_texts",
+        "num_iter": 30,
+        "generate_results": [
+            "the small kitchen of our home on craggy mountain in western north carolina",
+            ". the photo was taken with a polaroid camera, which gave it a nostalgic look that i still love today!",
+            "photo by <person>, used with permission.",
+            "(view from the other side of kitchen)",
+            "*kitchen window in the background, small kitchen",
+            "with a cinder block basement foundation and wall heater.",
+            "1978 kitchen.",
+            "old photos, retro vintage",
+            ", retro kitchen, the big leap movie",
+            ", retro pictures, old kitchens",
+            ", kitchen ideas, old photos online",
+            ", vintage kitchen ideas retro",
+            "kitchen, retro kitchens, vintage images",
+            ", vintage kitchens",
+            ", vintage pictures, cottages and bungalows",
+            ", rustic cottage kitchens",
+            ", old kitchens and bathrooms",
+            ", vintage homes and gardens, old house designs",
+            ", mid century kitchens and bathrooms",
+            ", vintage mid century modern kitchens and bathrooms",
+            ", vintage small bathrooms",
+            ", retro kitchens and bathrooms",
+            ", vintage kitchens and bathrooms",
+            ", retro kitchens and bathrooms",
+            "with brick, retro kitchens and bathrooms with a fireplace",
+            ", retro kitchens and bathrooms with wood trim",
+            ", retro kitchens and bathrooms with cinder blocks",
+            ", retro kitchens and bathrooms with cinder block walls",
+            ", retro kitchens and bathrooms with wood walls",
+            ", retro kitchens and bathrooms with pink tile"
+        ]
+    }
+]

@@ -20,7 +20,7 @@ class VisualTokenizer(nn.Module):
         super().__init__()
         self.clip_normalize = clip_normalize
         self.encoder = clip_vit_adapter_hf(model_path=encoder_model_path)
-        encoder_hidden_size = perceiver_config.encoder_hidden_size
+        encoder_hidden_size = perceiver_config.encoder_hidden_size  # encoder hidden_size (1024)
 
         self.pos_proj = nn.Linear(encoder_hidden_size, encoder_hidden_size)
         self.pos_ln = nn.LayerNorm(encoder_hidden_size, eps=1e-6)
@@ -30,10 +30,10 @@ class VisualTokenizer(nn.Module):
             ).float()
         ).requires_grad_(False)
 
-        self.perceiver_resampler = PerceiverResampler(**perceiver_config)
+        self.perceiver_resampler = PerceiverResampler(**perceiver_config)       # to perceiver hidden_size (1024)
         self.length = perceiver_config.num_queries
         self.post_ln = nn.LayerNorm(encoder_hidden_size, eps=1e-6)
-        self.proj = nn.Linear(perceiver_config.hidden_size, llm_hidden_size)
+        self.proj = nn.Linear(perceiver_config.hidden_size, llm_hidden_size)    # to llm hidden size (5120)
 
         self.initialize_weights()
 

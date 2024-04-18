@@ -13,7 +13,7 @@
             false 
         ],
         "generate_mode": "generate_images",
-        "num_iter": 1
+        "num_iter": 30
     },
 
     {
@@ -30,6 +30,6 @@
             true
         ],
         "generate_mode": "generate_texts",
-        "num_iter": 1
+        "num_iter": 30
     }
 ]

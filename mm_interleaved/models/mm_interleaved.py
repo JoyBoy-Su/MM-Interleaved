@@ -57,7 +57,7 @@ class MMInterleaved(nn.Module):
         self.loss_txt_weight = loss_txt_weight  # 1.0
         self.num_img_token = num_img_token      # 64, token num of each image?
 
-        llm_config = LlamaConfig.from_pretrained(llm_model_path)    # vicuna config
+        llm_config = LlamaConfig.from_pretrained(llm_model_path)    # vicuna config, llama with mmfs attention
         # visual tokenizer (clip vit large 14 and adapter), extract multi-scale features
         self.visual_tokenizer = VisualTokenizer(
             llm_hidden_size=llm_config.hidden_size, # encoder hidden size, (5120)
@@ -127,9 +127,9 @@ class MMInterleaved(nn.Module):
     ):
         output = {}
 
-        # step 1. get text token embeds
+        # step 1. get text token embeds (batch, len) => (batch, len, embed_dim)
         text_embeds = self.mm_decoder.get_input_embeddings()(text_ids)
-        B, L, C = text_embeds.shape
+        B, L, C = text_embeds.shape # text ids: (1, 80); text embeds: (1, 80, 5120)
 
         assert num_image_per_seq.sum() == image_tensors.shape[0], (
             f"image_tensors.shape: {image_tensors.shape} | "
@@ -139,12 +139,12 @@ class MMInterleaved(nn.Module):
         # step 2. get image embeds
         visual_output = self.visual_tokenizer(image_tensors)
         valid_image_embeds = visual_output["vis_embed"]
-        valid_image_embeds = rearrange(valid_image_embeds, "b l c -> (b l) c")
+        valid_image_embeds = rearrange(valid_image_embeds, "b l c -> (b l) c")  # (num_img_tokens, embed_dim): (64, 5120)
 
         # step 3. insert image embeds into text embeds
         image_token_pos_x, image_token_pos_y = (
             text_ids == self.special_token_dict["image_token_id"]
-        ).nonzero(as_tuple=True)
+        ).nonzero(as_tuple=True)    # get image token (num_img_num, ) (64, )
         image_token_pos = image_token_pos_x * L + image_token_pos_y
         assert image_token_pos.shape[0] == valid_image_embeds.shape[0], (
             f"{image_token_pos.shape}, {valid_image_embeds.shape}\n"
@@ -152,15 +152,15 @@ class MMInterleaved(nn.Module):
             f"{text_ids[:,:100]} \n {text_ids[:,-100:]}"
         )
         text_embeds = rearrange(text_embeds, "b l c -> (b l) c")
-        text_embeds = text_embeds.to(valid_image_embeds.dtype)
-        image_token_pos = image_token_pos[:, None].expand(-1, C)
+        text_embeds = text_embeds.to(valid_image_embeds.dtype)      # (total len, embed_dim), (80, 5120)
+        image_token_pos = image_token_pos[:, None].expand(-1, C)    # 
         mm_embeds = torch.scatter(
             text_embeds, dim=0, index=image_token_pos, src=valid_image_embeds
-        )
+        )   # mix text and image token embeddings
         # add learnable soi token
         soi_token_pos_x, soi_token_pos_y = (
             text_ids == self.special_token_dict["soi_token_id"]
-        ).nonzero(as_tuple=True)
+        ).nonzero(as_tuple=True)    # soi token is in front of <|image|>
         soi_token_pos = soi_token_pos_x * L + soi_token_pos_y
         soi_token_pos = soi_token_pos[:, None].expand(-1, C)
         learnable_soi_embeds = self.soi_token.repeat(soi_token_pos.shape[0], 1)
@@ -168,7 +168,7 @@ class MMInterleaved(nn.Module):
             mm_embeds, dim=0, index=soi_token_pos, src=learnable_soi_embeds
         )
         mm_embeds = rearrange(mm_embeds, "(b l) c -> b l c", b=B)
-        output["mm_embeds"] = mm_embeds
+        output["mm_embeds"] = mm_embeds # update embed, set image embedding and soi embedding
 
         # step 4. prepare cross attention mask and MMFS features for mm decoder
         output.update(
@@ -246,7 +246,7 @@ class MMInterleaved(nn.Module):
         for feat in mmfs_features_new:
             feat_n = rearrange(feat, "b n c h w -> b n (h w) c")
             mmfs_features_mm.append(feat_n)
-        mmfs_features_mm = torch.cat(mmfs_features_mm, dim=2)
+        mmfs_features_mm = torch.cat(mmfs_features_mm, dim=2)   # (1, 1, 1344, 1024)
         output["mmfs_features_mm"] = mmfs_features_mm
 
         return output
@@ -541,14 +541,14 @@ class MMInterleaved(nn.Module):
         output.update(_output)
 
         # forward through the mm_decoder
-        mm_outputs = self.mm_decoder(
+        mm_outputs = self.mm_decoder(   # vicuna
             inputs_embeds=mm_embeds,
             attention_mask=attention_mask,
             vision_hidden_states=mmfs_features_mm,
             cross_attention_mask=cross_attention_mask,
             return_dict=True,
         )
-        mm_hidden_state = mm_outputs.last_hidden_state
+        mm_hidden_state = mm_outputs.last_hidden_state  # (b, length, embed_dim), (1, 80, 5120)
 
         multiscale_features = output.pop("multiscale_features")
         (
@@ -584,7 +584,7 @@ class MMInterleaved(nn.Module):
                 for ms_feat in mmfs_features
             ]
 
-        image_decoder_output = self.image_decoder.generate_images(
+        image_decoder_output = self.image_decoder.generate_images(  # preceiver resampler + stable diffusion
             context_features=context_features,
             context_attention_mask=context_attention_mask,
             mmfs_features=mmfs_features,

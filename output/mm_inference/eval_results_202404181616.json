@@ -1,0 +1,40 @@
+[
+    {
+        "sentences": [
+            "a kitchen is shown with a variety of items on the counters.<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>"
+        ],
+        "images": [
+            "./docs/examples/COCO_val2014_000000384213.jpg"
+        ],
+        "sentence_ixs": [
+            0
+        ],
+        "image_first": [
+            false
+        ],
+        "generate_mode": "generate_images",
+        "num_iter": 1,
+        "generate_results": [
+            "0_0_0.png"
+        ]
+    },
+    {
+        "sentences": [
+            "<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>A photo of"
+        ],
+        "images": [
+            "./docs/examples/COCO_val2014_000000384213.jpg"
+        ],
+        "sentence_ixs": [
+            0
+        ],
+        "image_first": [
+            true
+        ],
+        "generate_mode": "generate_texts",
+        "num_iter": 1,
+        "generate_results": [
+            "a very small, old kitchen.  all the appliances are missing or broken and there is no room for anything else!"
+        ]
+    }
+]
