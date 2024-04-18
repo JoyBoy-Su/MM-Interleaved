@@ -300,12 +300,14 @@ def inference_all(model, config, annt_path, output_dir):
 
 
 def main():
+    # load config file
     parser = ArgumentParser(TrainingArguments)
-    init_distributed_mode()
     args = parser.parse_args_with_config_file_into_dataclasses()
     train_args, config = args
     print(train_args)
     print(config)
+    # init for distribute inference
+    init_distributed_mode() 
 
     print("Model Init Start")
     # init mm interleaved model (vision encoder, vision decoder, llm)
