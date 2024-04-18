@@ -4,7 +4,7 @@ batchscript-*
 phoenix-slurm-*
 .ipynb_checkpoints/
 .idea/
-.vscode/
+
 
 OUTPUT/
 *.tmp
