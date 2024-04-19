@@ -244,11 +244,11 @@ def inference_all(model, config, annt_path, output_dir):
                 inputs[k] = v
         meta = inputs.get("meta", {})
 
-        generate_mode = meta.get("generate_mode", config.generate_mode)
+        generate_mode = meta.get("generate_mode", config.generate_mode) # default mode: config.generate mode
         if config.auto_end:
             max_num_iter = config.num_iter
         else:
-            max_num_iter = meta.get("num_iter", config.num_iter)
+            max_num_iter = meta.get("num_iter", config.num_iter)    # num_iter set in annt.json
         is_stopped = False
 
         meta["generate_results"] = []

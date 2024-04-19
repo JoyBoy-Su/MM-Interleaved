@@ -1,0 +1,20 @@
+[
+    {
+        "sentences": [
+            "The dog was ready to go.",
+            "He had a great time on the hike."
+        ],
+        "images": [
+            "./docs/story/story1.jpg",
+            "./docs/story/story2.jpg"
+        ],
+        "sentence_ixs": [
+            0, 1
+        ],
+        "image_first": [
+            true, true
+        ],
+        "generate_mode": "generate_images",
+        "num_iter": 30
+    }
+]
