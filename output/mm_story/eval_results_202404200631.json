@@ -1,0 +1,54 @@
+[
+    {
+        "sentences": [
+            "<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>The dog was ready to go.",
+            "<|beginofimage|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|><|image|>He had a great time on the hike."
+        ],
+        "images": [
+            "./docs/story/story1.jpg",
+            "./docs/story/story2.jpg"
+        ],
+        "sentence_ixs": [
+            0,
+            1
+        ],
+        "image_first": [
+            true,
+            true
+        ],
+        "generate_mode": "generate_images",
+        "num_iter": 30,
+        "generate_results": [
+            "0_0_0.png",
+            "We stopped often to explore and take in the views. I even got some cool pictures of him that show his great paws!",
+            "0_2_0.png",
+            "When we got back, he immediately went inside to lie on his bed. I didn't even have time to take off the leash before he settled down!",
+            "We hiked just a little more than 1 mile today. I would like to hike at least twice this week, but the weather looks pretty bleak so far with thunderstorms and rain coming in by tonight through tomorrow night - ugh!",
+            "We'll see what tomorrow brings, but if we can get out for a couple of hikes this week it will make up for not getting to go last Sunday. It is really hard when weather conditions prevent you from having the desired activity levels...but hopefully your dog and you enjoy every hike regardless of distance or type! Have an awesome day!!!!! What are some things that help keep you motivated during times like these? Is there",
+            "a great motivator or activity you have stumbled on that helps? I would love to hear any ideas! Hi, my name is Caitlin (and yes it's short for Catherine) and I am the writer of The Labrador Lifestyle. My blog focuses on living your life to its fullest with your best friend by side: no matter what breed he/she may be!! Please feel free to email me",
+            "with any questions or comments you may have!",
+            "Thank you for stopping by! \u00a9 The Labrador Lifestyle - All Rights Reserved.",
+            "All pictures are property of The Labrador Lifestyle and may not be used or distributed without permission.",
+            "Thank you! The Labrador Lifestyle. Powered by Blogger.",
+            "Blogger Templates created by Deluxe Themes.",
+            "\u00a9 The Labrador Lifestyle - All Rights Reserved.",
+            "All pictures are property of The Labrador Lifestyle and may not be used or distributed without permission.",
+            "Simple theme. Theme images by Airyelf. Powered by Blogger.",
+            "Blogger Templates by Deluxe Themes.",
+            "Blogger.com. Back to Top \u2191Back up site linkThis page was created in one hour!",
+            "\u00a9 The Labrador Lifestyle. Powered by Blogger.",
+            "Blogger Templates created by Deluxe Themes.",
+            "Back to Top \u2191Back up site linkThis page was created in one hour!",
+            "\u00a9 The Labrador Lifestyle. Powered by Blogger.",
+            "0_21_0.png",
+            "Blogger Templates created by Deluxe Themes.",
+            "Back to Top \u2191Back up site linkThis page was created in one hour! This page may not be reproduced or distributed without permission from the Labrador Lifestyle.",
+            "Powered by Blogger. Copyright \u00a9 The Labrador Lifestyle - All Rights Reserved!",
+            "Blogger Theme by Deluxe Templates. Back to Top \u2191Back up site linkThis page was created in one hour!",
+            "This page may not be reproduced or distributed without permission from the Labrador Lifestyle. Powered by Blogger. Copyright \u00a9 The Labrador Lifestyle - All Rights Reserved!",
+            "0_27_0.png",
+            "Blogger Theme by Deluxe Templates. Back to Top \u2191Back up site linkThis page was created in one hour! This page may not be reproduced or distributed without permission from the Labrador Lifestyle. Powered by Blogger. Copyright \u00a9 The Labrador Lifestyle - All Rights Reserved!",
+            "0_29_0.png"
+        ]
+    }
+]

@@ -9,7 +9,7 @@ import subprocess
 import torch
 import torch.distributed as dist
 
-
+# load pretrain weights from 'mm_interleaved_pretrain', 61390MiB, 61GB
 def load_model_weights(model, ckpt_path, image_upscale=1.0):
     print("loading:", ckpt_path)
     if os.path.isdir(ckpt_path):
